@@ -1,0 +1,14 @@
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    #关闭 Thymeleaf 缓存，否则在开发的过程中修改页面不会立即生效，需要重启
+    cache: false
+
+

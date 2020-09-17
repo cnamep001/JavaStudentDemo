@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+">
+
+    <!-- 自动扫码 -->
+    <context:component-scan base-package="com.m"></context:component-scan>
+
+    <!--&lt;!&ndash; 使Aspect注解生效，为委托类自动生成代理对象 &ndash;&gt;-->
+    <!--<aop:aspectj-autoproxy></aop:aspectj-autoproxy>-->
+
+    <bean id="student1" class="com.m.ioc.entity.Student" scope="prototype" depends-on="classes">
+        <property name="id"  value="1"></property>
+
+        <property name="name" value="张三1"></property>
+
+    </bean>
+    <bean id="student2" class="com.m.ioc.entity.Student" parent="student1" scope="prototype" depends-on="classes">
+
+    </bean>
+    <bean id="student4" class="com.m.ioc.entity.Student">
+        <constructor-arg index="0" value="1"></constructor-arg>
+        <constructor-arg index="1">
+            <value>
+                <![CDATA[<杨三001>]]>
+            </value>
+        </constructor-arg>
+    </bean>
+
+
+    <bean id="classes" class="com.m.ioc.entity.Classes">
+        <property name="id" value="1"></property>
+        <property name="name" value="一班"></property>
+
+        <property name="students">
+            <list>
+                <ref bean="student1"></ref>
+                <ref bean="student2"></ref>
+                <ref bean="student4"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="baseDao" class="com.m.ioc.dao.impl.BaseDaoImpl1"></bean>-->
+    <!--<bean  id="baseService" class="com.m.ioc.service.impl.BaseServiceImpl1">-->
+        <!--<property name="baseDao" ref="baseDao"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="BaseController" class="com.m.ioc.controller.BaseController">-->
+        <!--<property name="baseService" ref="baseService"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="car" class="com.m.ioc.factory.StaticFactory" factory-method="getCar">-->
+        <!--<constructor-arg value="2"></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="InstanceFactory" class="com.m.ioc.factory.InstanceFactory"></bean>-->
+    <!--<bean id="car1" factory-bean="InstanceFactory" factory-method="getCar">-->
+        <!--<constructor-arg value="1"></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean  id="testDao" class="com.m.ioc.autowire.impl.TestDaoImpl">-->
+        <!--<property name="id" value="001"></property>-->
+        <!--<property name="name" value="TestDaoImpl"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="service" class="com.m.ioc.autowire.TestService" autowire="byType">-->
+        <!--<property name="id" value="1"></property>-->
+    <!--</bean>-->
+</beans>
